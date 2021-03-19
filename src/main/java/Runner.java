@@ -4,18 +4,23 @@ import java.util.Scanner;
 public class Runner {
     public static void main(String[] args) {
 
-//        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-        Player dealer = new Player(1, "The dealer");
-        Player player2 = new Player(2, "Larry");
+        Player dealer = new Player("The dealer");
+//        Player player2 = new Player("Larry");
         ArrayList<Player> players = new ArrayList<>();
         players.add(dealer);
+
+        System.out.println("Welcome to Blackjack!");
+        System.out.println("What is your name?");
+
+        String name = scanner.next();
+        Player player2 = new Player(name);
         players.add(player2);
 
         Deck deck = new Deck();
         Game game = new Game(players);
 
-        System.out.println("Welcome to Blackjack!");
         System.out.println("The dealer deals two cards to each player and two cards for themselves.");
 
         game.start();
@@ -28,8 +33,6 @@ public class Runner {
             }
             System.out.println(String.format("Hand total is %s", player.getScore()));
         }
-
-
 
         if(game.isDraw()) {
             System.out.println("It's a draw!");

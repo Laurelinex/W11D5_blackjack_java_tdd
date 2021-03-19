@@ -19,8 +19,8 @@ public class GameTest {
 
     @Before
     public void before() {
-        player1 = new Player(1, "The dealer");
-        player2 = new Player(2, "Larry");
+        player1 = new Player("The dealer");
+        player2 = new Player("Larry");
         ArrayList<Player> players = new ArrayList<>();
         players.add(player1);
         players.add(player2);

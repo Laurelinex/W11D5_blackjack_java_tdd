@@ -11,15 +11,15 @@ public class PlayerTest {
 
     @Before
     public void before() {
-        player1 = new Player(1, "Laureline");
+        player1 = new Player("Laureline");
         card = new Card(SuitType.SPADES, RankType.ACE);
         card2 = new Card(SuitType.SPADES, RankType.QUEEN);
     }
 
-    @Test
-    public void hasPlayerNumber() {
-        assertEquals(1, player1.getPlayerNumber());
-    }
+//    @Test
+//    public void hasPlayerNumber() {
+//        assertEquals(1, player1.getPlayerNumber());
+//    }
 
     @Test
     public void hasName() {

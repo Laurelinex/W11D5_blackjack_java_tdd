@@ -2,19 +2,19 @@ import java.util.ArrayList;
 
 public class Player {
 
-    private int playerNumber;
+//    private int playerNumber;
     private String name;
     private ArrayList<Card> playerHand;
 
-    public Player(int playerNumber, String name) {
-        this.playerNumber = playerNumber;
+    public Player(String name) {
+//        this.playerNumber = playerNumber;
         this.name = name;
         this.playerHand = new ArrayList<Card>();
     }
 
-    public int getPlayerNumber() {
-        return this.playerNumber;
-    }
+//    public int getPlayerNumber() {
+//        return this.playerNumber;
+//    }
 
     public String getName() {
         return this.name;

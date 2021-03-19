@@ -30,7 +30,7 @@ public class Game {
         }
     }
 
-    public Player checkWinner() {
+    public Player getWinner() {
         Player winner = this.players.get(0);
         for(Player player : this.players) {
             if(winner.getScore() <= player.getScore()) {
@@ -52,4 +52,11 @@ public class Game {
             return false;
         }
     }
+
+    public void start() {
+        dealToAllPlayers(2);
+        getWinner();
+
+    }
+
 }

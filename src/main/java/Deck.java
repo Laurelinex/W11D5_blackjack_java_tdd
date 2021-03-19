@@ -31,7 +31,6 @@ public class Deck {
     }
 
     public Object[] getAllCards() {
-
         return this.cards.toArray();
     }
 

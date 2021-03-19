@@ -41,4 +41,10 @@ public class PlayerTest {
         assertEquals(1, player1.getScore());
     }
 
+    @Test
+    public void canShowCard() {
+        player1.addCardToHand(card);
+        assertEquals("ACE of SPADES", player1.showCard(0));
+    }
+
 }

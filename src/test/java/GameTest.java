@@ -19,8 +19,8 @@ public class GameTest {
 
     @Before
     public void before() {
-        player1 = new Player(1, "Laureline");
-        player2 = new Player(2, "Scott");
+        player1 = new Player(1, "The dealer");
+        player2 = new Player(2, "Larry");
         ArrayList<Player> players = new ArrayList<>();
         players.add(player1);
         players.add(player2);
@@ -56,7 +56,7 @@ public class GameTest {
         } else {
             winner = player2;
         }
-        assertEquals(winner, game.checkWinner());
+        assertEquals(winner, game.getWinner());
     }
 
     @Test
@@ -64,6 +64,25 @@ public class GameTest {
         player1.addCardToHand(card);
         player2.addCardToHand(card);
         assertEquals(true, game.isDraw());
+    }
+
+    @Test
+    public void playStartsDealing2CardsToEachPlayer() {
+        game.start();
+        assertEquals(2, player1.getHandSize());
+        assertEquals(2, player2.getHandSize());
+    }
+
+    @Test
+    public void playCanDetermineWinner() {
+        game.start();
+        Player winner;
+        if(player1.getScore() >= player2.getScore()) {
+            winner = player1;
+        } else {
+            winner = player2;
+        }
+        assertEquals(winner, game.getWinner());
     }
 
 }

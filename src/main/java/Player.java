@@ -39,4 +39,35 @@ public class Player {
     public String showCard(int index) {
         return this.playerHand.get(index).getCardName();
     }
+
+    public boolean handHasBusted() {
+        if(getScore() > 21) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean handHasAce() {
+        for(Card card : this.playerHand) {
+            if(card.getValueFromEnum() == 11) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean handHasBlackjack() {
+        for(Card firstCard : this.playerHand) {
+            if(firstCard.getRank() == RankType.ACE) {
+                for(Card secondCard : this.playerHand) {
+                    if(secondCard.getValueFromEnum() == 10) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
 }

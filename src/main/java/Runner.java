@@ -29,6 +29,8 @@ public class Runner {
             System.out.println(String.format("Hand total is %s", player.getScore()));
         }
 
+
+
         if(game.isDraw()) {
             System.out.println("It's a draw!");
         } else {

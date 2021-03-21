@@ -14,11 +14,17 @@ public class Runner {
         players.add(dealer);
 
         System.out.println("Welcome to Blackjack!");
-        System.out.println("How many players would like to play?");
 
-        String input = scanner.next();
-        int numberOfPlayers = parseInt(input);
+//        Asks for input about number of players with 4 players limit.
+        String numberOfPlayersInput;
+        int numberOfPlayers;
+        do {
+            System.out.println("How many players would like to play (1-4)?");
+            numberOfPlayersInput = scanner.next();
+            numberOfPlayers = parseInt(numberOfPlayersInput);
+        } while(numberOfPlayers < 0 || numberOfPlayers > 4);
 
+//        Game prompts for player names and create new instances of players.
         for(int i=0; i<numberOfPlayers; i++) {
             String prompt = String.format("Player %s, enter your name: ", (i + 1));
             System.out.println(prompt);
@@ -29,13 +35,16 @@ public class Runner {
 
         System.out.println("");
 
+//        A game is initialised with a new populated and shuffled deck and the dealer and new players are assigned to
+//        it.
         Game game = new Game(players);
 
+//        A subList of the players minus the dealer is initialised.
         List<Player> playersWithoutDealer = players.subList(1, players.size());
 
         System.out.println("The dealer deals two cards to each player and two cards for themselves.");
 
-//        2 cards are distributed to all players.
+//        Two cards are distributed to all players.
         game.start();
 
 //        One of the dealer cards is dealt face up.
@@ -44,7 +53,7 @@ public class Runner {
         System.out.println(dealer.showCard(0) + " worth " + dealer.getShowCardValue(0));
         System.out.println("");
 
-//        We loop through the players and display hand info each, skipping the dealer at index 0.
+//        We loop through the players and display hand info for each, skipping the dealer.
         for(Player player : playersWithoutDealer) {
             String output = String.format("%s has:", player.getName());
             System.out.println(output);
@@ -55,7 +64,6 @@ public class Runner {
             System.out.println("");
         }
 
-//        To refractor and add to Game class + initiate Game with a dealer.
 //        The game first checks for a Blackjack consisting of an ace and any 10-point card.
         if(dealer.handHasBlackjack()) {
             System.out.println("Oh no! The dealer's hand has a Blackjack!");
@@ -64,7 +72,7 @@ public class Runner {
                     System.out.println(player.getName() + " also has a Blackjack. It's a draw?");
                 } else {
                     System.out.println(player.getName() + " loses.");
-                    System.out.println("The dealer wins.");
+//                    System.out.println("The dealer wins.");
                 }
             }
         } else {
@@ -76,10 +84,14 @@ public class Runner {
             }
         }
 
+//        The player is presented with two choices:
+//        Stand: Player stands pat with his cards.
+//        Twist: Player draws another card (and more if he wishes).
+//        If this card causes the player's total points to exceed 21 ("busting") then he loses.
         for(Player player : playersWithoutDealer) {
             String decision;
             char d;
-            if(!player.handHasBusted()) {
+            if(!player.handHasBusted() && !player.handHasBlackjack()) {
                 do {
                     do {
                         String prompt = String.format("%s, would you like to (s)tand or (t)wist?", player.getName());
@@ -132,11 +144,13 @@ public class Runner {
             System.out.println("");
         } else if(dealer.getScore() > 16 && !dealer.handHasBusted() && game.playersRemain()){
             System.out.println("The dealer stands.");
+            System.out.println("");
         }
 
 //        If the dealer does not bust, then the higher point total between the player and dealer will win.
         if(dealer.handHasBusted() && game.playersRemain()) {
             System.out.println("The dealer busts.");
+            System.out.println("");
             Player winner = game.getWinner();
             String winnerName = winner.getName();
             String output = String.format("%s wins!", winnerName);

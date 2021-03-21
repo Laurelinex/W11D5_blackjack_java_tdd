@@ -54,7 +54,7 @@ public class Runner {
         } else {
             for(Player player : players.subList(1, players.size())) {
                 if(player.handHasBlackjack()) {
-                    System.out.println(player.getName() + " has a Blackjack and wins!");
+                    System.out.println(player.getName() + " has a Blackjack!");
                 }
             }
         }
@@ -76,6 +76,10 @@ public class Runner {
                         System.out.println(player.showCard(i));
                     }
                     System.out.println(String.format("Hand total is now %s", player.getScore()));
+                }
+                if(d == 's') {
+                    System.out.println(player.getName() + " stands.");
+                    System.out.println("");
                 }
             } while (d != 's' && player.getScore() <= 21);
         }

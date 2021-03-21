@@ -75,6 +75,15 @@ public class GameTest {
         assertEquals(2, player2.getHandSize());
     }
 
+    @Test
+    public void playerCannotWinIfScoreMoreThan21() {
+        player1.addCardToHand(card);
+        player1.addCardToHand(card);
+        player1.addCardToHand(card);
+        player2.addCardToHand(card);
+        assertEquals(player2, game.getWinner());
+    }
+
 //    @Test
 //    public void canCheckForBlackJack() {
 //        player1.addCardToHand(card);

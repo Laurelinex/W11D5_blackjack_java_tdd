@@ -30,12 +30,23 @@ public class Game {
         }
     }
 
+//    public Player getWinner() {
+//        Player winner = this.players.get(0);
+//        for(Player player : this.players) {
+//            if(winner.getScore() <= 21 && winner.getScore() <= player.getScore()) {
+//                winner = player;
+//            }
+//        }
+//        return winner;
+//    }
+
     public Player getWinner() {
-        Player winner = this.players.get(0);
+        Player winner = null;
+        int highest = 0;
         for(Player player : this.players) {
-            if(winner.getScore() <= player.getScore()) {
-                winner = player;
-            }
+            if(player.getScore() > highest && player.getScore() <= 21);
+            highest = player.getScore();
+            winner = player;
         }
         return winner;
     }

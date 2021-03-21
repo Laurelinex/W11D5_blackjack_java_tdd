@@ -30,23 +30,14 @@ public class Game {
         }
     }
 
-//    public Player getWinner() {
-//        Player winner = this.players.get(0);
-//        for(Player player : this.players) {
-//            if(winner.getScore() <= 21 && winner.getScore() <= player.getScore()) {
-//                winner = player;
-//            }
-//        }
-//        return winner;
-//    }
-
     public Player getWinner() {
         Player winner = null;
         int highest = 0;
         for(Player player : this.players) {
-            if(player.getScore() > highest && player.getScore() <= 21);
-            highest = player.getScore();
-            winner = player;
+            if(player.getScore() > highest && !player.handHasBusted()) {
+                highest = player.getScore();
+                winner = player;
+            }
         }
         return winner;
     }
@@ -68,4 +59,18 @@ public class Game {
         dealToAllPlayers(2);
     }
 
+    public String end() {
+        return ("Thank you for playing!");
+    }
+
+    public boolean playersRemain() {
+        boolean result = false;
+        for(Player player : this.players.subList(1, players.size())) {
+            if(!player.handHasBusted()) {
+                result = true;
+                return result;
+            }
+        }
+        return result;
+    }
 }

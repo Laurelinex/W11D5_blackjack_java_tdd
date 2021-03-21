@@ -65,6 +65,14 @@ public class PlayerTest {
     }
 
     @Test
+    public void canCheckIfHandHasBustedFalseWith21() {
+        player1.addCardToHand(card);
+        player1.addCardToHand(card2);
+        assertEquals(21, player1.getScore());
+        assertEquals(false, player1.handHasBusted());
+    }
+
+    @Test
     public void canCheckHandHasAceTrue() {
         player1.addCardToHand(card);
         assertEquals(true, player1.handHasAce());

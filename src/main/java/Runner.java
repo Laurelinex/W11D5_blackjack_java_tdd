@@ -21,7 +21,6 @@ public class Runner {
         Player player2 = new Player(name);
         players.add(player2);
 
-//        Deck deck = new Deck();
         Game game = new Game(players);
 
         System.out.println("The dealer deals two cards to each player and two cards for themselves.");
@@ -79,7 +78,46 @@ public class Runner {
                     System.out.println(String.format("Hand total is now %s", player.getScore()));
                 }
             } while (d != 's' && player.getScore() <= 21);
+        }
 
+//        After each player has had their turn, the dealer will show their hand.
+        System.out.println("The dealer reveals their hand:");
+        for (int i=0; i<dealer.getHandSize(); i++) {
+            System.out.println(dealer.showCard(i));
+        }
+        System.out.println(String.format("Hand total is %s", dealer.getScore()));
+        System.out.println("");
+
+//        If the dealer has 16 or less, then they will draw another card.
+        if(dealer.getScore() <= 16) {
+            System.out.println("The dealer draws another card.");
+            game.deal(dealer);
+            for (int i=0; i<dealer.getHandSize(); i++) {
+                System.out.println(dealer.showCard(i));
+            }
+            System.out.println(String.format("Hand total is %s", dealer.getScore()));
+            System.out.println("");
+        } else {
+            System.out.println("The dealer stands.");
+        }
+
+//        If the dealer does not bust, then the higher point total between the player and dealer will win.
+        if(dealer.handHasBusted()) {
+            System.out.println("The dealer busts.");
+            Player winner = game.getWinner();
+            String winnerName = winner.getName();
+            String output = String.format("%s wins!", winnerName);
+            System.out.println(output);
+        } else {
+            System.out.println();
+            if (game.isDraw()) {
+                System.out.println("It's a draw!");
+            } else {
+                Player winner = game.getWinner();
+                String winnerName = winner.getName();
+                String output = String.format("%s wins!", winnerName);
+                System.out.println(output);
+            }
         }
 
 //        if(game.isDraw()) {

@@ -73,16 +73,16 @@ public class GameTest {
         assertEquals(2, player2.getHandSize());
     }
 
-    @Test
-    public void playCanDetermineWinner() {
-        game.start();
-        Player winner;
-        if(player1.getScore() >= player2.getScore()) {
-            winner = player1;
-        } else {
-            winner = player2;
-        }
-        assertEquals(winner, game.getWinner());
-    }
+//    @Test
+//    public void playCanDetermineWinner() {
+//        game.start();
+//        Player winner;
+//        if(player1.getScore() >= player2.getScore()) {
+//            winner = player1;
+//        } else {
+//            winner = player2;
+//        }
+//        assertEquals(winner, game.getWinner());
+//    }
 
 }

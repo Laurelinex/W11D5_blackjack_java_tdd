@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Runner {
@@ -7,9 +8,11 @@ public class Runner {
         Scanner scanner = new Scanner(System.in);
 
         Player dealer = new Player("The dealer");
-//        Player player2 = new Player("Larry");
         ArrayList<Player> players = new ArrayList<>();
         players.add(dealer);
+
+//        Not working, ask later...
+//        List<Player> playersNoDealer = players.subList(1, players.size());
 
         System.out.println("Welcome to Blackjack!");
         System.out.println("What is your name?");
@@ -25,7 +28,12 @@ public class Runner {
 
         game.start();
 
-        for(Player player : players) {
+        String dealerShow = String.format(("%s reveals its first card:"), dealer.getName());
+        System.out.println(dealerShow);
+        System.out.println(dealer.showCard(0));
+        System.out.println("");
+
+        for(Player player : players.subList(1, players.size())) {
             String output = String.format("%s has:", player.getName());
             System.out.println(output);
             for(int i=0; i<player.getHandSize(); i++) {
@@ -33,6 +41,11 @@ public class Runner {
             }
             System.out.println(String.format("Hand total is %s", player.getScore()));
         }
+//
+//        if(checkBlackjack()) {
+//
+//            System.out.println();
+//        }
 
         if(game.isDraw()) {
             System.out.println("It's a draw!");

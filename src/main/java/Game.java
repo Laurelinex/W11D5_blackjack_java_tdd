@@ -55,8 +55,6 @@ public class Game {
 
     public void start() {
         dealToAllPlayers(2);
-        getWinner();
-
     }
 
 }

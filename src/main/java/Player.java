@@ -40,6 +40,10 @@ public class Player {
         return this.playerHand.get(index).getCardName();
     }
 
+    public int getShowCardValue(int index) {
+        return this.playerHand.get(index).getValueFromEnum();
+    }
+
     public boolean handHasBusted() {
         if(getScore() > 21) {
             return true;

@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 public class Runner {
     public static void main(String[] args) {
 
@@ -15,13 +17,20 @@ public class Runner {
 //        List<Player> playersNoDealer = players.subList(1, players.size());
 
         System.out.println("Welcome to Blackjack!");
-        System.out.println("What is your name?");
+        System.out.println("How many players would you like to play?");
 
-        String name = scanner.next();
+        String input = scanner.next();
+        int numberOfPlayers = parseInt(input);
+
+        for(int i=0; i<numberOfPlayers; i++) {
+            String prompt = String.format("Player %s, enter your name: ", (i + 1));
+            System.out.println(prompt);
+            String playerName = scanner.next();
+            Player player = new Player(playerName);
+            players.add(player);
+        }
+
         System.out.println("");
-
-        Player player2 = new Player(name);
-        players.add(player2);
 
         Game game = new Game(players);
 
@@ -29,9 +38,9 @@ public class Runner {
 
         game.start();
 
-        String dealerShow = String.format(("%s reveals its first card:"), dealer.getName());
+        String dealerShow = String.format(("%s reveals their first card:"), dealer.getName());
         System.out.println(dealerShow);
-        System.out.println(dealer.showCard(0));
+        System.out.println(dealer.showCard(0) + " worth " + dealer.getShowCardValue(0));
         System.out.println("");
 
         for(Player player : players.subList(1, players.size())) {
@@ -41,6 +50,7 @@ public class Runner {
                 System.out.println(player.showCard(i));
             }
             System.out.println(String.format("Hand total is %s", player.getScore()));
+            System.out.println("");
         }
 
 //        To refractor and add to Game + initiate Game with a dealer.
@@ -97,12 +107,16 @@ public class Runner {
         }
 
 //        After each player has had their turn, the dealer will show their hand.
-        System.out.println("The dealer reveals their hand:");
-        for (int i=0; i<dealer.getHandSize(); i++) {
-            System.out.println(dealer.showCard(i));
+        if(!game.playersRemain()) {
+            System.out.println("All players have busted.");
+        } else {
+            System.out.println("The dealer reveals their hand:");
+            for (int i=0; i<dealer.getHandSize(); i++) {
+                System.out.println(dealer.showCard(i));
+            }
+            System.out.println(String.format("Hand total is %s", dealer.getScore()));
+            System.out.println("");
         }
-        System.out.println(String.format("Hand total is %s", dealer.getScore()));
-        System.out.println("");
 
 //        If the dealer has 16 or less, then they will draw another card.
         if(dealer.getScore() <= 16 && game.playersRemain()) {
@@ -113,7 +127,7 @@ public class Runner {
             }
             System.out.println(String.format("Hand total is %s", dealer.getScore()));
             System.out.println("");
-        } else {
+        } else if(dealer.getScore() > 16 && !dealer.handHasBusted() && game.playersRemain()){
             System.out.println("The dealer stands.");
         }
 

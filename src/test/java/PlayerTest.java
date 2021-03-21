@@ -50,6 +50,12 @@ public class PlayerTest {
     }
 
     @Test
+    public void canShowCardValue() {
+        player1.addCardToHand(card);
+        assertEquals(11, player1.getShowCardValue(0));
+    }
+
+    @Test
     public void canCheckIfHandHasBustedTrue() {
         player1.addCardToHand(card);
         player1.addCardToHand(card);

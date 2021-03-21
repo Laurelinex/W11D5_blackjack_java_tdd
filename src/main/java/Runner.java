@@ -13,11 +13,8 @@ public class Runner {
         ArrayList<Player> players = new ArrayList<>();
         players.add(dealer);
 
-//        Not working, ask later...
-//        List<Player> playersNoDealer = players.subList(1, players.size());
-
         System.out.println("Welcome to Blackjack!");
-        System.out.println("How many players would you like to play?");
+        System.out.println("How many players would like to play?");
 
         String input = scanner.next();
         int numberOfPlayers = parseInt(input);
@@ -34,16 +31,21 @@ public class Runner {
 
         Game game = new Game(players);
 
+        List<Player> playersWithoutDealer = players.subList(1, players.size());
+
         System.out.println("The dealer deals two cards to each player and two cards for themselves.");
 
+//        2 cards are distributed to all players.
         game.start();
 
+//        One of the dealer cards is dealt face up.
         String dealerShow = String.format(("%s reveals their first card:"), dealer.getName());
         System.out.println(dealerShow);
         System.out.println(dealer.showCard(0) + " worth " + dealer.getShowCardValue(0));
         System.out.println("");
 
-        for(Player player : players.subList(1, players.size())) {
+//        We loop through the players and display hand info each, skipping the dealer at index 0.
+        for(Player player : playersWithoutDealer) {
             String output = String.format("%s has:", player.getName());
             System.out.println(output);
             for(int i=0; i<player.getHandSize(); i++) {
@@ -53,10 +55,11 @@ public class Runner {
             System.out.println("");
         }
 
-//        To refractor and add to Game + initiate Game with a dealer.
+//        To refractor and add to Game class + initiate Game with a dealer.
+//        The game first checks for a Blackjack consisting of an ace and any 10-point card.
         if(dealer.handHasBlackjack()) {
             System.out.println("Oh no! The dealer's hand has a Blackjack!");
-            for(Player player : players.subList(1, players.size())) {
+            for(Player player : playersWithoutDealer) {
                 if(player.handHasBlackjack()) {
                     System.out.println(player.getName() + " also has a Blackjack. It's a draw?");
                 } else {
@@ -65,7 +68,7 @@ public class Runner {
                 }
             }
         } else {
-            for(Player player : players.subList(1, players.size())) {
+            for(Player player : playersWithoutDealer) {
                 if(player.handHasBlackjack()) {
                     System.out.println(player.getName() + " has a Blackjack!");
                     System.out.println(player.getName() + " wins.");
@@ -73,7 +76,7 @@ public class Runner {
             }
         }
 
-        for(Player player : players.subList(1, players.size())) {
+        for(Player player : playersWithoutDealer) {
             String decision;
             char d;
             if(!player.handHasBusted()) {

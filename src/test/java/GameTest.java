@@ -16,6 +16,7 @@ public class GameTest {
     Deck deck;
 
     Card card;
+    Card card2;
 
     @Before
     public void before() {
@@ -27,6 +28,7 @@ public class GameTest {
         deck = new Deck();
         game = new Game(players);
         card = new Card(SuitType.SPADES, RankType.ACE);
+        card2 = new Card(SuitType.SPADES, RankType.TEN);
     }
 
     @Test
@@ -72,6 +74,15 @@ public class GameTest {
         assertEquals(2, player1.getHandSize());
         assertEquals(2, player2.getHandSize());
     }
+
+//    @Test
+//    public void canCheckForBlackJack() {
+//        player1.addCardToHand(card);
+//        player1.addCardToHand(card2);
+//        player2.addCardToHand(card);
+//        player2.addCardToHand(card);
+//
+//    }
 
 //    @Test
 //    public void playCanDetermineWinner() {

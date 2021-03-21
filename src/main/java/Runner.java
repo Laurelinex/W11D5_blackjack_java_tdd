@@ -21,7 +21,7 @@ public class Runner {
         Player player2 = new Player(name);
         players.add(player2);
 
-        Deck deck = new Deck();
+//        Deck deck = new Deck();
         Game game = new Game(players);
 
         System.out.println("The dealer deals two cards to each player and two cards for themselves.");
@@ -41,20 +41,55 @@ public class Runner {
             }
             System.out.println(String.format("Hand total is %s", player.getScore()));
         }
-//
-//        if(checkBlackjack()) {
-//
-//            System.out.println();
-//        }
 
-        if(game.isDraw()) {
-            System.out.println("It's a draw!");
+//        To refractor and add to Game + initiate Game with a dealer.
+        if(dealer.handHasBlackjack()) {
+            System.out.println("Oh no! The dealer's hand has a Blackjack!");
+            for(Player player : players.subList(1, players.size())) {
+                if(player.handHasBlackjack()) {
+                    System.out.println(player.getName() + " also has a Blackjack. It's a draw?");
+                } else {
+                    System.out.println(player.getName() + " loses.");
+                }
+            }
         } else {
-            Player winner = game.getWinner();
-            String winnerName = winner.getName();
-            String output = String.format("%s wins!", winnerName);
-            System.out.println(output);
+            for(Player player : players.subList(1, players.size())) {
+                if(player.handHasBlackjack()) {
+                    System.out.println(player.getName() + " has a Blackjack and wins!");
+                }
+            }
         }
+
+        for(Player player : players.subList(1, players.size())) {
+            String decision;
+            char d;
+            do {
+                do {
+                    String prompt = String.format("%s, would you like to (s)tand or (t)wist?", player.getName());
+                    System.out.println(prompt);
+                    decision = scanner.next();
+                    d = decision.toLowerCase().charAt(0);
+                } while (! (d == 's' || d == 't'));
+                if(d == 't') {
+                    System.out.println(player.getName() + " draws another card.");
+                    game.deal(player);
+                    for(int i=0; i<player.getHandSize(); i++) {
+                        System.out.println(player.showCard(i));
+                    }
+                    System.out.println(String.format("Hand total is now %s", player.getScore()));
+                }
+            } while (d != 's' && player.getScore() <= 21);
+
+        }
+
+//        if(game.isDraw()) {
+//            System.out.println("It's a draw!");
+//        } else {
+//            Player winner = game.getWinner();
+//            String winnerName = winner.getName();
+//            String output = String.format("%s wins!", winnerName);
+//            System.out.println(output);
+//        }
 
 
 
